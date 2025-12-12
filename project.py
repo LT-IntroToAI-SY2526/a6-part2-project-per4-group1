@@ -21,7 +21,9 @@ from sklearn.metrics import mean_squared_error, r2_score
 import numpy as np
 
 # TODO: Update this with your actual filename
-DATA_FILE = 'your_data.csv'
+DATA_FILE = "auto-mpg.csv"
+
+
 
 def load_and_explore_data(filename):
     """
@@ -39,8 +41,19 @@ def load_and_explore_data(filename):
     print("=" * 70)
     
     # Your code here
+    df = pd.read_csv(filename)
     
-    pass
+    # Drop 'car_name' column
+    if 'car_name' in df.columns:
+        df = df.drop(columns=['car_name'])
+    
+    print("Shape of dataset:", df.shape)
+    print("\nFirst 5 rows:\n", df.head())
+    print("\nSummary statistics:\n", df.describe())
+    
+    print("\nMissing values per column:\n", df.isnull().sum())
+    
+    return df
 
 
 def visualize_data(data):
