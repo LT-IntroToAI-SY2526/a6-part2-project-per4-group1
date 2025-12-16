@@ -3,14 +3,27 @@ Multivariable Linear Regression Project
 Assignment 6 Part 3
 
 Group Members:
-- 
-- 
-- 
-- 
+- Franco
+- Toma
+- James
+- Matt
 
-Dataset: [Name of your dataset]
-Predicting: [What you're predicting]
-Features: [List your features]
+Dataset: Auto-MPG
+Predicting: Miles per gallon
+Features: 
+cylinders
+
+displacement
+
+horsepower
+
+weight
+
+acceleration
+
+model_year
+
+origin
 """
 
 import pandas as pd
