@@ -77,7 +77,28 @@ def visualize_data(data):
     # Your code here
     # Hint: Use subplots like in Part 2!
     
-    pass
+    target = 'mpg'
+    feature_columns = [col for col in data.columns if col != target]
+    num_features = len(feature_columns)
+
+    fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(15, 12))
+    axes = axes.flatten()
+
+    for i, feature in enumerate(feature_columns):
+        axes[i].scatter(data[feature], data[target], alpha=0.6)
+        axes[i].set_xlabel(feature)
+        axes[i].set_ylabel(target)
+        axes[i].set_title(f"{feature} vs {target}")
+
+    for j in range(i + 1, len(axes)):
+        fig.delaxes(axes[j])
+    
+    plt.tight_layout()
+    plt.savefig("feature_vs_mpg.png")
+    plt.show()
+    
+    print("Scatter plots saved as 'feature_vs_mpg.png'")
+
 
 
 def prepare_and_split_data(data):
@@ -102,8 +123,19 @@ def prepare_and_split_data(data):
     print("=" * 70)
     
     # Your code here
+    X = data.drop(columns=['mpg'])
+    y = data['mpg']
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    print("X_train shape:", X_train.shape)
+    print("X_test shape:", X_test.shape)
+    print("y_train shape:", y_train.shape)
+    print("y_test shape:", y_test.shape)
     
-    pass
+    return X_train, X_test, y_train, y_test
 
 
 def train_model(X_train, y_train):
