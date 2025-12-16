@@ -173,8 +173,24 @@ def train_model(X_train, y_train):
     print("=" * 70)
     
     # Your code here
+    model = LinearRegression()
+    model.fit(X_train, y_train)
     
-    pass
+    print("Regression Equation:")
+    equation = f"mpg = {model.intercept_:.3f}"
+    for coef, feature in zip(model.coef_, X_train.columns):
+        equation += f" + ({coef:.3f} * {feature})"
+    print(equation)
+    
+    # Feature importance (absolute value of coefficients)
+    importance = pd.Series(model.coef_, index=X_train.columns)
+    importance = importance.reindex(importance.abs().sort_values(ascending=False).index)
+    
+    print("\nFeature Importance (by coefficient magnitude):")
+    print(importance)
+    
+    return model
+    
 
 
 def evaluate_model(model, X_test, y_test):
