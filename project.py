@@ -217,9 +217,22 @@ def evaluate_model(model, X_test, y_test):
     print("=" * 70)
     
     # Your code here
-    
-    pass
+    predictions = model.predict(X_test)
 
+    r2 = r2_score(y_test, predictions)
+    rmse = np.sqrt(mean_squared_error(y_test, predictions))
+
+    print(f"R² Score: {r2:.4f}")
+    print(f"RMSE: {rmse:.4f}")
+
+    comparison_df = pd.DataFrame({
+        "Actual MPG": y_test.values[:10],
+        "Predicted MPG": predictions[:10]
+    })
+    print("\nFirst 10 Predictions vs Actual Values:")
+    print(comparison_df)
+    
+    return predictions
 
 def make_prediction(model):
     """
@@ -241,8 +254,24 @@ def make_prediction(model):
     # Your code here
     # Example: If predicting house price with [sqft, bedrooms, bathrooms]
     # sample = pd.DataFrame([[2000, 3, 2]], columns=feature_names)
+    sample = pd.DataFrame(
+        [[8, 307.0, 130.0, 3500.0, 12.0, 70, 1]],
+        columns=[
+            'cylinders',
+            'displacement',
+            'horsepower',
+            'weight',
+            'acceleration',
+            'model_year',
+            'origin'
+        ]
+    )
     
-    pass
+    predicted_mpg = model.predict(sample)
+    
+    print("Sample input:")
+    print(sample)
+    print(f"\nPredicted MPG: {predicted_mpg[0]:.2f}")
 
 
 if __name__ == "__main__":
